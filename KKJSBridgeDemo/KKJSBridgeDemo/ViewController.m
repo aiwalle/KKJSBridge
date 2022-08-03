@@ -47,7 +47,7 @@
     NSString *url = @"http://127.0.0.1:50000/index";
     {
         // 测试第三方网站 ajax 请求
-//        url = @"https://m.taobao.com";
+        url = @"https://m.taobao.com";
 //        url = @"https://www.wenjuan.com/s/JBVRje4/";
 //        url = @"https://i.meituan.com/";
 //        url = @"https://h5.ele.me/";
@@ -66,9 +66,9 @@
 //        NSString *path = [[NSBundle mainBundle] pathForResource:@"ajaxHookTestLocalFile" ofType:@"html"];
 //        url = [NSString stringWithFormat:@"file://%@", path];
     }
-    url = @"https://h5.leoao.com/fit-m/#/pages/pt/index";
-    url = @"https://h5.leoao.com/multiple/coach/cert.html#/certEdit";
-    url = @"http://www.baidu.com";
+//    url = @"https://h5.leoao.com/fit-m/#/pages/pt/index";
+//    url = @"https://h5.leoao.com/multiple/coach/cert.html#/certEdit";
+//    url = @"http://www.baidu.com";
     WebViewController *web = [[WebViewController alloc] initWithUrl:url];
     [self.navigationController pushViewController:web animated:YES];
 }
