@@ -6,3 +6,5 @@ KKJSBridge/TS/node_modules/*
 KKJSBridge/TS/package-lock.json
 KKJSBridgeDemo/Podfile.lock
 KKJSBridgeDemo/Pods/*
+/KKJSBridgeDemo/DerivedData
+/KKJSBridgeDemo/KKJSBridgeDemo.xcodeproj/xcuserdata/xmly.xcuserdatad

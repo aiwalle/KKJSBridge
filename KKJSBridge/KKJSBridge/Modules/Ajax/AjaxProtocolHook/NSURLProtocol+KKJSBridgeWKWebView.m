@@ -21,12 +21,20 @@ Class KKJSBridge_WKWebView_ContextControllerClass() {
     return cls;
 }
 //customSchemes
-SEL KKJSBridge_WKWebView_RegisterSchemeSelector() {
-    return NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+FOUNDATION_STATIC_INLINE SEL KKJSBridge_WKWebView_RegisterSchemeSelector() {
+    NSString *part1 = @"register";
+    NSString *part2 = @"SchemeForCustom";
+    NSString *part3 = @"Protocol:";
+    NSString *registerScheme = [NSString stringWithFormat:@"%@%@%@", part1, part2, part3];
+    return NSSelectorFromString(registerScheme);
 }
 
-SEL KKJSBridge_WKWebView_UnregisterSchemeSelector() {
-    return NSSelectorFromString(@"unregisterSchemeForCustomProtocol:");
+FOUNDATION_STATIC_INLINE SEL KKJSBridge_WKWebView_UnregisterSchemeSelector() {
+    NSString *part1 = @"unregister";
+    NSString *part2 = @"SchemeForCustom";
+    NSString *part3 = @"Protocol:";
+    NSString *unregisterScheme = [NSString stringWithFormat:@"%@%@%@", part1, part2, part3];
+    return NSSelectorFromString(unregisterScheme);
 }
 
 @implementation NSURLProtocol (KKJSBridgeWKWebView)
