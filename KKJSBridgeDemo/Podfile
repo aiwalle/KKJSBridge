@@ -7,5 +7,5 @@ target 'KKJSBridgeDemo' do
   
 #  pod 'KKJSBridge/AjaxHook', :path => '../'
   pod 'AFNetworking'
-
+  pod 'SDWebImage'   
 end

@@ -14,8 +14,11 @@
 #import "ModuleB.h"
 #import "ModuleC.h"
 #import "ModuleDefault.h"
+#import "IBWebImgURLManager.h"
+#import <SDWebImage/SDWebImageDownloader.h>
+#import <SDWebImage/SDDiskCache.h>
 
-@interface WebViewController ()<KKWebViewDelegate>
+@interface WebViewController ()<KKWebViewDelegate, IBWebImgURLManagerDelegate>
 
 @property (nonatomic, strong, readwrite) KKWebView *webView;
 @property (nonatomic, copy, readwrite) NSString *url;
@@ -180,6 +183,8 @@
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     }
     [self.view addConstraints:constraints];
+    
+    [IBWebImgURLManager sharerInstance].delegate = self;
 }
 
 - (void)onClickBack {
@@ -188,6 +193,11 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)didDownLoadImage:(UIImage *)image {
+    NSArray *imgArray = [IBWebImgURLManager sharerInstance].imgArray;
+    NSLog(@"Liang downloadUrl imgCount %ld", [IBWebImgURLManager sharerInstance].imgArray.count);
 }
 
 #pragma mark - 请求
@@ -200,6 +210,15 @@
 }
 
 #pragma mark - WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    [IBWebImgURLManager sharerInstance].uuidKey = [[NSUUID UUID] UUIDString];
+    [IBWebImgURLManager sharerInstance].imgArray = [NSMutableArray array];
+    
+    [[SDWebImageDownloader sharedDownloader] cancelAllDownloads];
+    
+    
+}
+
 // 在发送请求之前，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if ([navigationAction.request.URL.absoluteString containsString:@"https://__bridge_loaded__"]) {// 防止 WebViewJavascriptBridge 注入

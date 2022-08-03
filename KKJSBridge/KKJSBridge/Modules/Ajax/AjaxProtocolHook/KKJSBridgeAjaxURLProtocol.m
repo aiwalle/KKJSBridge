@@ -28,6 +28,8 @@ static NSString * const kKKJSBridgeOpenUrlRequestIdPairRegex = @"^.*(#%5E%5E%5E%
 static NSString * const kKKJSBridgeAjaxRequestHeaderAC = @"Access-Control-Request-Headers";
 static NSString * const kKKJSBridgeAjaxResponseHeaderAC = @"Access-Control-Allow-Headers";
 
+NSString * const IBJSBridgeAjaxGetImgUrl = @"IBJSBridgeAjaxGetImgUrl";
+
 @interface KKJSBridgeAjaxURLProtocol () <NSURLSessionDelegate, KKJSBridgeAjaxDelegate>
 
 @property (nonatomic, strong) NSURLSessionDataTask *customTask;
@@ -42,6 +44,13 @@ static NSString * const kKKJSBridgeAjaxResponseHeaderAC = @"Access-Control-Allow
     // 看看是否已经处理过了，防止无限循环
     if ([NSURLProtocol propertyForKey:kKKJSBridgeNSURLProtocolKey inRequest:request]) {
         return NO;
+    }
+    
+    NSString *requetUrlStr = request.URL.absoluteString.lowercaseString;
+    if ([requetUrlStr containsString:@"png"]
+        || [requetUrlStr containsString:@"jpg"]
+        || [requetUrlStr containsString:@"jpeg"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:IBJSBridgeAjaxGetImgUrl object:requetUrlStr];
     }
     
     /**
