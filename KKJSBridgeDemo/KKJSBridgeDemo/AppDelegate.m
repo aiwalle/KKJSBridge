@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#ifdef DEBUG
+  #import <DoraemonKit/DoraemonKit.h>
+#endif
 
 @interface AppDelegate ()
 
@@ -17,6 +20,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+#ifdef DEBUG
+    [[DoraemonManager shareInstance] addH5DoorBlock:^(NSString *h5Url) {
+        //使用自己的H5容器打开这个链接
+    }];
+    
+    [[DoraemonManager shareInstance] install];
+#endif
     return YES;
 }
 
