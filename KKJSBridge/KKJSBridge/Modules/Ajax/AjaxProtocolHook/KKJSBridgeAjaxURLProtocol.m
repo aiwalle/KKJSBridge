@@ -50,7 +50,8 @@ NSString * const IBJSBridgeAjaxGetImgUrl = @"IBJSBridgeAjaxGetImgUrl";
     if ([requetUrlStr containsString:@"png"]
         || [requetUrlStr containsString:@"jpg"]
         || [requetUrlStr containsString:@"jpeg"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:IBJSBridgeAjaxGetImgUrl object:requetUrlStr];
+        NSString *originImgUrlStr = request.URL.absoluteString;
+        [[NSNotificationCenter defaultCenter] postNotificationName:IBJSBridgeAjaxGetImgUrl object:originImgUrlStr];
     }
     
     /**
